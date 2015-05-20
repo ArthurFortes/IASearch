@@ -6,7 +6,7 @@ class Classroom(object):
         self.id_classroom = id_classroom
         self.schedule_matrix = schedule_matrix
 
-    def is_empty(self, day, position):
+    def is_position_empty(self, day, position):
         if self.schedule_matrix[day][position] == -1:
             return True
         else:
