@@ -1,6 +1,6 @@
-from IASearch.classroom import Classroom
-from IASearch.subject import Subject
-from IASearch.teacher import Teacher
+from classroom import Classroom
+from subject import Subject
+from teacher import Teacher
 
 __author__ = 'ArthurFortes'
 
