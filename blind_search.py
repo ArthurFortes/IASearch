@@ -4,9 +4,10 @@ from verify_functions import is_consistency
 __author__ = 'ArthurFortes'
 
 
-def blind_search(classroom_list, subjects_list, number_nodes):
+def blind_search(classroom_list, subjects_list, number_nodes, flag='normal'):
     id_list = list()
 
+    # create a list with objects ids
     for subject in subjects_list:
         id_list.append(subject.id_subject)
 
@@ -19,20 +20,33 @@ def blind_search(classroom_list, subjects_list, number_nodes):
                 if classroom.schedule_matrix[i][j] == -1:
 
                     new_list_subject = list()
-                    shuffle(id_list)
 
-                    for id_number in id_list:
-                        new_list_subject.append(subjects_list[id_number])
+                    if flag == 'random':
 
+                        # Shuffle list of ids to build different lists of objects
+                        shuffle(id_list)
+
+                        for id_number in id_list:
+                            # verify subject was full alloc in classrooms
+                            if subjects_list[id_number].lessons_quantity > 0:
+                                new_list_subject.append(subjects_list[id_number])
+
+                    elif flag == 'normal':
+                        for sub in subjects_list:
+                            if sub.lessons_quantity > 0:
+                                new_list_subject.append(sub)
+
+                    # select all possible movements
                     for subject in new_list_subject:
-                            if subject.lessons_quantity > 0:
-                                possible_movements.append([classroom.id_classroom, i, j, subject.id_subject, 0])
+                        # this list receives: class id | day | class hour | subject id
+                        possible_movements.append([classroom.id_classroom, i, j, subject.id_subject])
 
     for possible_choice in possible_movements:
         subjects_list[possible_choice[3]].lessons_quantity -= 1
         classroom_list[possible_choice[0]].schedule_matrix[possible_choice[1]][possible_choice[2]] = possible_choice[3]
         number_nodes += 1
 
+        # call backtracking
         backtracking, number_nodes = blind_search(classroom_list, subjects_list, number_nodes)
 
         if backtracking:
@@ -45,4 +59,3 @@ def blind_search(classroom_list, subjects_list, number_nodes):
         return True, number_nodes
     else:
         return False, number_nodes
-

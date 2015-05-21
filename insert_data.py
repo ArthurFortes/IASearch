@@ -1,8 +1,11 @@
 import time
-from blind_search import blind_search
 from classroom import Classroom
 from subject import Subject
 from teacher import Teacher
+from blind_search import blind_search
+from heuristic_search import heuristic_search
+from restriction_search import restriction_search
+# from verify_functions import is_consistency
 from verify_functions import is_consistency
 
 __author__ = 'ArthurFortes'
@@ -76,21 +79,62 @@ def main():
     # class0.schedule_matrix[0][1] = 3
     # class0.schedule_matrix[0][0] = 3
     #
-    # class1.schedule_matrix[0][3] = 5
-    # class1.schedule_matrix[0][2] = 5
+    # class1.schedule_matrix[0][3] = 6
+    # class1.schedule_matrix[0][2] = 6
     # class1.schedule_matrix[0][1] = 4
     # class1.schedule_matrix[0][0] = 4
-
+    #
+    # class2.schedule_matrix[2][3] = 2
+    # class2.schedule_matrix[2][2] = 2
+    # class2.schedule_matrix[2][1] = 7
+    # class2.schedule_matrix[2][0] = 7
+    #
     # print(class0.schedule_matrix)
     # print(class1.schedule_matrix)
-
+    # print(class2.schedule_matrix)
+    #
     # print(is_consistency(classroom_list, subjects_list))
+
     number_nodes = 0
 
-    start_time = time.time()
-    print(blind_search(classroom_list, subjects_list, number_nodes))
-    print("---%s seconds ---" % (time.time()-start_time))
+    # # Blind Search
+    #
+    # start_time = time.time()
+    # return_success, number_nodes = blind_search(classroom_list, subjects_list, number_nodes)
+    #
+    # print("Execution Time: %s seconds" % (time.time()-start_time))
+    # print("%s number of nodes \n" % number_nodes)
+    #
+    # print("--- Schedules ---")
+    # print(class0.schedule_matrix)
+    # print(class1.schedule_matrix)
+    # print(class2.schedule_matrix)
 
+    # # Heuristic Search
+
+    start_time = time.time()
+    return_success, number_nodes = heuristic_search(classroom_list, subjects_list, teachers_list, number_nodes)
+
+    print("Execution Time: %s seconds" % (time.time()-start_time))
+    print("%s number of nodes \n" % number_nodes)
+
+    print("--- Schedules ---")
+    print(class0.schedule_matrix)
+    print(class1.schedule_matrix)
+    print(class2.schedule_matrix)
+
+    # Restriction Search
+
+    # start_time = time.time()
+    # return_success, number_nodes = restriction_search(classroom_list, subjects_list, teachers_list, number_nodes)
+    #
+    # print("Execution Time: %s seconds" % (time.time()-start_time))
+    # print("%s number of nodes \n" % number_nodes)
+    #
+    # print("--- Schedules ---")
+    # print(class0.schedule_matrix)
+    # print(class1.schedule_matrix)
+    # print(class2.schedule_matrix)
 
 if __name__ == "__main__":
     main()
