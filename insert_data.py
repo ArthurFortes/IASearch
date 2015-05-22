@@ -97,23 +97,10 @@ def main():
 
     number_nodes = 0
 
-    # # Blind Search
-    #
-    # start_time = time.time()
-    # return_success, number_nodes = blind_search(classroom_list, subjects_list, number_nodes)
-    #
-    # print("Execution Time: %s seconds" % (time.time()-start_time))
-    # print("%s number of nodes \n" % number_nodes)
-    #
-    # print("--- Schedules ---")
-    # print(class0.schedule_matrix)
-    # print(class1.schedule_matrix)
-    # print(class2.schedule_matrix)
-
-    # # Heuristic Search
+    # Blind Search
 
     start_time = time.time()
-    return_success, number_nodes = heuristic_search(classroom_list, subjects_list, teachers_list, number_nodes)
+    return_success, number_nodes = blind_search(classroom_list, subjects_list, number_nodes)
 
     print("Execution Time: %s seconds" % (time.time()-start_time))
     print("%s number of nodes \n" % number_nodes)
@@ -122,6 +109,19 @@ def main():
     print(class0.schedule_matrix)
     print(class1.schedule_matrix)
     print(class2.schedule_matrix)
+
+    # # Heuristic Search
+    #
+    # start_time = time.time()
+    # return_success, number_nodes = heuristic_search(classroom_list, subjects_list, teachers_list, number_nodes)
+    #
+    # print("Execution Time: %s seconds" % (time.time()-start_time))
+    # print("%s number of nodes \n" % number_nodes)
+    #
+    # print("--- Schedules ---")
+    # print(class0.schedule_matrix)
+    # print(class1.schedule_matrix)
+    # print(class2.schedule_matrix)
 
     # Restriction Search
 
