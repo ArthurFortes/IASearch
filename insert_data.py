@@ -54,6 +54,7 @@ def menu(classroom_list, subjects_list, teachers_list):
         user_option = int(input('What is your name:'))
         if user_option == 1:
             # Blind Search
+            print('This search may take a long time to display the result. Be patient!')
             start_time = time.time()
             return_success, number_nodes = blind_search(classroom_list, subjects_list, number_nodes)
 
