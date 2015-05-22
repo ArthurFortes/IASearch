@@ -1,15 +1,13 @@
 import time
+import os
 from classroom import Classroom
 from subject import Subject
 from teacher import Teacher
 from blind_search import blind_search
 from heuristic_search import heuristic_search
 from restriction_search import restriction_search
-# from verify_functions import is_consistency
-from verify_functions import is_consistency
 
 __author__ = 'ArthurFortes'
-
 
 """
     Days of week:
@@ -30,8 +28,69 @@ __author__ = 'ArthurFortes'
 """
 
 
-def main():
+def menu(classroom_list, subjects_list, teachers_list):
+    number_nodes = 0
+    start_time = 0
 
+    print('===== Menu ======')
+
+    print(u'The allocation of classrooms (scheduling) is a problem in which the objective is to organize a set of '
+          u'materials of different workloads on a set of classrooms available.')
+    print(u'This issue is implemented for*:')
+    print(u'- 10 subjects')
+    print(u'- 5 teachers')
+    print(u'- 3 classrooms')
+
+    print(u'* To change this setting change the source code of this file.\n')
+    print(u'Choose one of the searches below to solve the problem:')
+
+    print('1 - Blind Search')
+    print('2 - Heuristic Search')
+    print('3 - Restriction Search')
+    print('4 - Exit')
+    print('\n')
+
+    try:
+        user_option = int(input('What is your name:'))
+        if user_option == 1:
+            # Blind Search
+            start_time = time.time()
+            return_success, number_nodes = blind_search(classroom_list, subjects_list, number_nodes)
+
+        elif user_option == 2:
+            # Heuristic Search
+            start_time = time.time()
+            return_success, number_nodes = heuristic_search(classroom_list, subjects_list, teachers_list, number_nodes)
+
+        elif user_option == 3:
+            # Restriction Search
+            start_time = time.time()
+            return_success, number_nodes = restriction_search(classroom_list, subjects_list, teachers_list,
+                                                              number_nodes)
+
+        elif user_option == 4:
+            exit()
+
+        else:
+            print('Invalid option, choice must be (1-3). Try Again!')
+            menu(classroom_list, subjects_list, teachers_list)
+
+        print('\n')
+        print("Runtime: %s seconds" % (time.time() - start_time))
+        print("Number of nodes visited: %s  \n" % number_nodes)
+
+        print("--- Schedules ---")
+        print('[--Monday--] [--Tuesday--] [--Wednesday--] [--Thursday--] [--Friday--]')
+        for class_option in classroom_list:
+            print(class_option.schedule_matrix)
+
+    except ValueError:
+        os.system("cls")
+        print('Number must be a integer')
+        menu(classroom_list, subjects_list, teachers_list)
+
+
+def main():
     # initialize objects
 
     # insert teacher
@@ -95,46 +154,8 @@ def main():
     #
     # print(is_consistency(classroom_list, subjects_list))
 
-    number_nodes = 0
+    menu(classroom_list, subjects_list, teachers_list)
 
-    # Blind Search
-
-    start_time = time.time()
-    return_success, number_nodes = blind_search(classroom_list, subjects_list, number_nodes)
-
-    print("Execution Time: %s seconds" % (time.time()-start_time))
-    print("%s number of nodes \n" % number_nodes)
-
-    print("--- Schedules ---")
-    print(class0.schedule_matrix)
-    print(class1.schedule_matrix)
-    print(class2.schedule_matrix)
-
-    # # Heuristic Search
-    #
-    # start_time = time.time()
-    # return_success, number_nodes = heuristic_search(classroom_list, subjects_list, teachers_list, number_nodes)
-    #
-    # print("Execution Time: %s seconds" % (time.time()-start_time))
-    # print("%s number of nodes \n" % number_nodes)
-    #
-    # print("--- Schedules ---")
-    # print(class0.schedule_matrix)
-    # print(class1.schedule_matrix)
-    # print(class2.schedule_matrix)
-
-    # Restriction Search
-
-    # start_time = time.time()
-    # return_success, number_nodes = restriction_search(classroom_list, subjects_list, teachers_list, number_nodes)
-    #
-    # print("Execution Time: %s seconds" % (time.time()-start_time))
-    # print("%s number of nodes \n" % number_nodes)
-    #
-    # print("--- Schedules ---")
-    # print(class0.schedule_matrix)
-    # print(class1.schedule_matrix)
-    # print(class2.schedule_matrix)
 
 if __name__ == "__main__":
     main()
