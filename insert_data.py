@@ -32,14 +32,14 @@ def menu(classroom_list, subjects_list, teachers_list):
     number_nodes = 0
     start_time = 0
 
-    print('===== Menu ======')
+    print('\n IA Search \n')
 
     print(u'The allocation of classrooms (scheduling) is a problem in which the objective is to organize a set of '
           u'materials of different workloads on a set of classrooms available.')
     print(u'This issue is implemented for*:')
-    print(u'- 10 subjects')
-    print(u'- 5 teachers')
-    print(u'- 3 classrooms')
+    print(u'- ', len(subjects_list), ' subjects')
+    print(u'- ', len(teachers_list), ' teachers')
+    print(u'- ', len(classroom_list), ' classrooms')
 
     print(u'* To change this setting change the source code of this file.\n')
     print(u'Choose one of the searches below to solve the problem:')
@@ -47,11 +47,13 @@ def menu(classroom_list, subjects_list, teachers_list):
     print('1 - Blind Search')
     print('2 - Heuristic Search')
     print('3 - Restriction Search')
-    print('4 - Exit')
+    print('4 - Show subjects')
+    print('5 - Insert subjects')
+    print('6 - Exit')
     print('\n')
 
     try:
-        user_option = int(input('What is your name:'))
+        user_option = int(input('What is your choice: '))
         if user_option == 1:
             # Blind Search
             print('This search may take a long time to display the result. Be patient!')
@@ -70,20 +72,38 @@ def menu(classroom_list, subjects_list, teachers_list):
                                                               number_nodes)
 
         elif user_option == 4:
+            print("\n_________________________________________________")
+            print("|   Subject ID   |   Teacher ID   |   Workload   |")
+            print("_________________________________________________")
+            for subject in subjects_list:
+                print("|       ", subject.id_subject, "      |      ", subject.id_teacher, "      |      ",
+                      subject.lessons_quantity, "      |")
+
+                print("_________________________________________________")
+
+        elif user_option == 5:
             exit()
 
         else:
             print('Invalid option, choice must be (1-3). Try Again!')
             menu(classroom_list, subjects_list, teachers_list)
 
-        print('\n')
-        print("Runtime: %s seconds" % (time.time() - start_time))
-        print("Number of nodes visited: %s  \n" % number_nodes)
+        if user_option in [1, 2, 3]:
+            print('\n')
+            print("Runtime: %s seconds" % (time.time() - start_time))
+            print("Number of nodes visited: %s  \n" % number_nodes)
 
-        print("--- Schedules ---")
-        print('[--Monday--] [--Tuesday--] [--Wednesday--] [--Thursday--] [--Friday--]')
-        for class_option in classroom_list:
-            print(class_option.schedule_matrix)
+            print("--- Schedules ---")
+            print('[Classroom/ Day][--Monday--] [--Tuesday--] [--Wednesday--] [--Thursday--] [--Friday--]')
+            for class_option in classroom_list:
+                print('Classroom ', class_option.id_classroom, ' ', class_option.schedule_matrix)
+
+        option = input('\nReturn to menu (Y or N)? ')
+        if option == 'y' or option == 'Y':
+            os.system("cls")
+            menu(classroom_list, subjects_list, teachers_list)
+        else:
+            exit()
 
     except ValueError:
         os.system("cls")
@@ -119,13 +139,6 @@ def main():
     # Put subjects in a list
     subjects_list = [subject0, subject1, subject2, subject3, subject4, subject5, subject6, subject7, subject8, subject9]
 
-    # subject0 = Subject(0, 1, 2)
-    # subject1 = Subject(1, 2, 2)
-    # subject2 = Subject(2, 1, 4)
-    #
-    # # Put subjects in a list
-    # subjects_list = [subject0, subject1, subject2]
-
     # insert classroom
     class0 = Classroom(0, [[-1 for _ in range(4)] for _ in range(5)])
     class1 = Classroom(1, [[-1 for _ in range(4)] for _ in range(5)])
@@ -133,27 +146,6 @@ def main():
 
     # Put classes in a list
     classroom_list = [class0, class1, class2]
-
-    # class0.schedule_matrix[0][3] = 1
-    # class0.schedule_matrix[0][2] = 1
-    # class0.schedule_matrix[0][1] = 3
-    # class0.schedule_matrix[0][0] = 3
-    #
-    # class1.schedule_matrix[0][3] = 6
-    # class1.schedule_matrix[0][2] = 6
-    # class1.schedule_matrix[0][1] = 4
-    # class1.schedule_matrix[0][0] = 4
-    #
-    # class2.schedule_matrix[2][3] = 2
-    # class2.schedule_matrix[2][2] = 2
-    # class2.schedule_matrix[2][1] = 7
-    # class2.schedule_matrix[2][0] = 7
-    #
-    # print(class0.schedule_matrix)
-    # print(class1.schedule_matrix)
-    # print(class2.schedule_matrix)
-    #
-    # print(is_consistency(classroom_list, subjects_list))
 
     menu(classroom_list, subjects_list, teachers_list)
 

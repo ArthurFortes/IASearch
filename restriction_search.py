@@ -36,7 +36,7 @@ def restriction_search(classroom_list, subjects_list, teachers_list, number_node
                             score += double_class_preferences(classroom.schedule_matrix, i, j, subject.id_subject)
                             score += float(subject.lessons_quantity)/len(subjects_list)
 
-                            # this list receives: class id | day | class hour | subject id
+                            # this list receives: class id | day | class hour | subject id | score
                             possible_movements.append([classroom.id_classroom, i, j, subject.id_subject, score])
 
     possible_movements = sorted(possible_movements, key=lambda x: -x[4])

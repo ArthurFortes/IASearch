@@ -45,9 +45,17 @@ def is_consistency(classroom_list, subjects_list):
             return False
 
     if not return_teacher_consistency(classroom_list, subjects_list):
-        print('wee')
         return False
 
+    for i in range(len(classroom_list[0].schedule_matrix)):
+        all_subject = list()
+        for classroom in classroom_list:
+            all_subject += classroom.schedule_matrix[i]
+
+        for subject in all_subject:
+            if not subject == -1:
+                if all_subject.count(subject) > 2:
+                    return False
     return True
 
 
@@ -59,6 +67,7 @@ def check_local_consistency(classroom_list, class_id, day, pos, id_subject, id_t
 
         if classroom.id_classroom == class_id:
             list_position = list()
+
             for j in range(len(classroom.schedule_matrix[0])):
                 list_position.append(classroom.schedule_matrix[day][j])
 
@@ -67,11 +76,12 @@ def check_local_consistency(classroom_list, class_id, day, pos, id_subject, id_t
                     if list_position.count(subject) > 2:
                         classroom_list[class_id].schedule_matrix[day][pos] = -1
                         return 0
+
                     elif list_position.count(subject) == 2:
                         if subject in list_position[:2] and subject in list_position[2:]:
                             classroom_list[class_id].schedule_matrix[day][pos] = -1
                             return 0
-            pass
+
         else:
             sub_id = classroom.schedule_matrix[day][pos]
             if sub_id != -1:
@@ -80,6 +90,17 @@ def check_local_consistency(classroom_list, class_id, day, pos, id_subject, id_t
                         if sub_selected.id_teacher == id_teacher:
                             classroom_list[class_id].schedule_matrix[day][pos] = -1
                             return 0
+
+    for i in range(len(classroom_list[0].schedule_matrix)):
+        all_subject = list()
+        for classroom in classroom_list:
+            all_subject += classroom.schedule_matrix[i]
+
+        for subject in all_subject:
+            if not subject == -1:
+                if all_subject.count(subject) > 2:
+                    classroom_list[class_id].schedule_matrix[day][pos] = -1
+                    return 0
 
     classroom_list[class_id].schedule_matrix[day][pos] = -1
 
