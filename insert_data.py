@@ -45,8 +45,7 @@ def menu(classroom_list, subjects_list, teachers_list):
     print('2 - Heuristic Search')
     print('3 - Restriction Search')
     print('4 - Show subjects')
-    print('5 - Insert subjects')
-    print('6 - Exit')
+    print('5 - Exit')
     print('\n')
 
     number_nodes = 0
@@ -86,7 +85,8 @@ def menu(classroom_list, subjects_list, teachers_list):
             exit()
 
         else:
-            print('Invalid option, choice must be (1-3). Try Again!')
+            os.system("cls")
+            print('Invalid option, choice must be (1-5). Try Again!')
             main()
 
         if user_option in [1, 2, 3]:
