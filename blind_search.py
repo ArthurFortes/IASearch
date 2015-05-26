@@ -42,18 +42,31 @@ def blind_search(classroom_list, subjects_list, number_nodes, flag='normal'):
                         possible_movements.append([classroom.id_classroom, i, j, subject.id_subject])
 
     for possible_choice in possible_movements:
-        subjects_list[possible_choice[3]].lessons_quantity -= 1
-        classroom_list[possible_choice[0]].schedule_matrix[possible_choice[1]][possible_choice[2]] = possible_choice[3]
+        subject_selected = ''
+        classroom_selected = ''
+
+        for subject in subjects_list:
+            if subject.id_subject == possible_choice[3]:
+                subject_selected = subject
+
+        for classroom in classroom_list:
+            if classroom.id_classroom == possible_choice[0]:
+                classroom_selected = classroom
+
+        subjects_list[subjects_list.index(subject_selected)].lessons_quantity -= 1
+        classroom_list[classroom_list.index(classroom_selected)].schedule_matrix[possible_choice[1]][
+            possible_choice[2]] = possible_choice[3]
         number_nodes += 1
 
         # call backtracking
         backtracking, number_nodes = blind_search(classroom_list, subjects_list, number_nodes)
 
         if backtracking:
-            break
+            return True, number_nodes
         else:
-            subjects_list[possible_choice[3]].lessons_quantity += 1
-            classroom_list[possible_choice[0]].schedule_matrix[possible_choice[1]][possible_choice[2]] = -1
+            subjects_list[subjects_list.index(subject_selected)].lessons_quantity += 1
+            classroom_list[classroom_list.index(classroom_selected)].schedule_matrix[possible_choice[1]][
+                possible_choice[2]] = -1
 
     if is_consistency(classroom_list, subjects_list):
         return True, number_nodes

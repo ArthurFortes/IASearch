@@ -29,9 +29,6 @@ __author__ = 'ArthurFortes'
 
 
 def menu(classroom_list, subjects_list, teachers_list):
-    number_nodes = 0
-    start_time = 0
-
     print('\n IA Search \n')
 
     print(u'The allocation of classrooms (scheduling) is a problem in which the objective is to organize a set of '
@@ -52,8 +49,12 @@ def menu(classroom_list, subjects_list, teachers_list):
     print('6 - Exit')
     print('\n')
 
+    number_nodes = 0
+    start_time = 0
+
     try:
         user_option = int(input('What is your choice: '))
+
         if user_option == 1:
             # Blind Search
             print('This search may take a long time to display the result. Be patient!')
@@ -86,7 +87,7 @@ def menu(classroom_list, subjects_list, teachers_list):
 
         else:
             print('Invalid option, choice must be (1-3). Try Again!')
-            menu(classroom_list, subjects_list, teachers_list)
+            main()
 
         if user_option in [1, 2, 3]:
             print('\n')
@@ -101,18 +102,17 @@ def menu(classroom_list, subjects_list, teachers_list):
         option = input('\nReturn to menu (Y or N)? ')
         if option == 'y' or option == 'Y':
             os.system("cls")
-            menu(classroom_list, subjects_list, teachers_list)
+            main()
         else:
             exit()
 
     except ValueError:
         os.system("cls")
         print('Number must be a integer')
-        menu(classroom_list, subjects_list, teachers_list)
+        main()
 
 
-def main():
-    # initialize objects
+def main():    # initialize objects
 
     # insert teacher
     teacher0 = Teacher(0, [7], [0, 2, 4])
@@ -146,7 +146,6 @@ def main():
 
     # Put classes in a list
     classroom_list = [class0, class1, class2]
-
     menu(classroom_list, subjects_list, teachers_list)
 
 

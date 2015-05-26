@@ -1,15 +1,18 @@
 __author__ = 'ArthurFortes'
 
 
-def return_teacher_consistency(classroom_list, subjects_list):
+def return_teacher_subject_consistency(classroom_list, subjects_list):
     line_length = len(classroom_list[0].schedule_matrix)
     column_length = len(classroom_list[0].schedule_matrix[0])
 
     for i in range(line_length):
+        all_subject = list()
         for j in range(column_length):
             teachers_list = list()
+
             for classroom in classroom_list:
                 teachers_list.append(classroom.schedule_matrix[i][j])
+                all_subject.append(classroom.schedule_matrix[i][j])
 
             new_teacher_list = list()
             for item in teachers_list:
@@ -20,12 +23,17 @@ def return_teacher_consistency(classroom_list, subjects_list):
             if len([x for x in new_teacher_list if new_teacher_list.count(x) >= 2]) > 0:
                 return False
 
+        for subject in all_subject:
+            if not subject == -1:
+                if all_subject.count(subject) > 2:
+                    return False
     return True
 
 
 def verify_subject(class_matrix):
     for i in range(len(class_matrix)):
         list_position = list()
+
         for j in range(len(class_matrix[0])):
             list_position.append(class_matrix[i][j])
 
@@ -44,18 +52,9 @@ def is_consistency(classroom_list, subjects_list):
         if not verify_subject(classroom.schedule_matrix):
             return False
 
-    if not return_teacher_consistency(classroom_list, subjects_list):
+    if not return_teacher_subject_consistency(classroom_list, subjects_list):
         return False
 
-    for i in range(len(classroom_list[0].schedule_matrix)):
-        all_subject = list()
-        for classroom in classroom_list:
-            all_subject += classroom.schedule_matrix[i]
-
-        for subject in all_subject:
-            if not subject == -1:
-                if all_subject.count(subject) > 2:
-                    return False
     return True
 
 
