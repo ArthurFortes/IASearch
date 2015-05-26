@@ -115,16 +115,18 @@ def menu(classroom_list, subjects_list, teachers_list):
 def main():    # initialize objects
 
     # insert teacher
+    # Teacher(id, subject_id, list_days)
     teacher0 = Teacher(0, [7], [0, 2, 4])
     teacher1 = Teacher(1, [0, 4], [])
     teacher2 = Teacher(2, [1, 5, 8], [1, 2, 3])
     teacher3 = Teacher(3, [2, 3], [0])
-    teacher4 = Teacher(4, [6, 9], [0, 1, 3, 6])
+    teacher4 = Teacher(4, [6, 9], [0, 1, 3])
 
     # Put teachers in a list
     teachers_list = [teacher0, teacher1, teacher2, teacher3, teacher4]
 
     # insert subject
+    # Subject(id, teacher_id, lessons_quantity)
     subject0 = Subject(0, 1, 2)
     subject1 = Subject(1, 2, 2)
     subject2 = Subject(2, 3, 2)
@@ -140,6 +142,7 @@ def main():    # initialize objects
     subjects_list = [subject0, subject1, subject2, subject3, subject4, subject5, subject6, subject7, subject8, subject9]
 
     # insert classroom
+    # Classroom(id, schedule_matrix)
     class0 = Classroom(0, [[-1 for _ in range(4)] for _ in range(5)])
     class1 = Classroom(1, [[-1 for _ in range(4)] for _ in range(5)])
     class2 = Classroom(2, [[-1 for _ in range(4)] for _ in range(5)])
